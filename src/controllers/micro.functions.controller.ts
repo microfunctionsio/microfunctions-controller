@@ -212,6 +212,6 @@ export class MicroFunctionsController {
 
   private send(user: any, pattern: any, payload: any) {
     return this.clientProxy
-      .send(pattern, Object.assign({}, payload, { user }));
+      .send(pattern, Object.assign({}, payload, { user })).pipe(catchError(err => console.log));
   }
 }

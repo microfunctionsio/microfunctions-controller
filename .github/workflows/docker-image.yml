@@ -14,9 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@master
-    - name: Publish microfunctions-apis
+    - name: Publish microfunctions-controller
       uses: elgohr/Publish-Docker-Github-Action@2.12
       with:
-        name: microfunctions/microfunctions-apis
+        name: microfunctions/microfunctions-controller
         username: ${{ secrets.LOGIN_DOCKER }}
         password: ${{ secrets.PASSWORD_DOCKER }}

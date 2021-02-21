@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { ClientProxy } from '@nestjs/microservices';
 import { IAccessToken } from './IjwtPayload';
 import { AuthCredentialsDto } from './dtos/auth-credentials.dto';
-import { catchError } from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 export enum Provider {
   GOOGLE = 'google',
 }
@@ -16,7 +16,7 @@ export class AuthService {
 
   signUp(authCredentialsDto: AuthCredentialsDto) {
     const pattern = { cmd: 'auth-signUp' };
-    return this.send(pattern, authCredentialsDto);
+    return this.send(pattern, authCredentialsDto).pipe(tap(err => console.log(err)));
   }
 
   signIn(authCredentialsDto: AuthCredentialsDto): Observable<IAccessToken> {
@@ -29,6 +29,11 @@ export class AuthService {
   }
   getALLcli(user:any ): Observable<any> {
     const pattern = { cmd: 'get-cli-keys' };
+    return this.send(pattern, user);
+  }
+
+  getAllCollaborators(user:any ): Observable<any> {
+    const pattern = { cmd: 'get-list-Collaborators' };
     return this.send(pattern, user);
   }
 

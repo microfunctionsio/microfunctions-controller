@@ -12,12 +12,11 @@ const bodParserOptions = {
 };
 
 async function bootstrap() {
-  const globalPrefix: string = 'api/v1';
   const app = await NestFactory.create(AppModule, {
     bodyParser: true,
 
   });
-  app.setGlobalPrefix(globalPrefix);
+
   app.use(json());
   app.use(bodyParser.raw(bodParserOptions));
   app.useGlobalInterceptors(new LoggingInterceptor());

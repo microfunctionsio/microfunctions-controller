@@ -24,15 +24,21 @@ export class AuthController {
   }
   @Post('/cli')
   @UseGuards(CAuthGuard)
-  cli(
-    @Body() cli: any, @GetUser() user: User,
+  cli(@GetUser() user: User,
   ): Observable<any> {
     return this.authService.generateCli(user);
   }
 
+  @Get('/collaborators')
+  @UseGuards(CAuthGuard)
+  getAllCollaborators(@GetUser() user: User) {
+
+    return this.authService.getAllCollaborators(user);
+  }
+
   @Get('/cli')
   @UseGuards(CAuthGuard)
-  getAllCliKey(@Body() cli: any, @GetUser() user: User) {
+  getAllCliKey(@GetUser() user: User) {
 
     return this.authService.getALLcli(user);
   }
@@ -41,41 +47,6 @@ export class AuthController {
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
   ): Observable<IAccessToken> {
     return this.authService.signIn(authCredentialsDto);
-  }
-
-  @Get('/signin/google')
-  @UseGuards(AuthGuard('google'))
-  signinProviderGoogle() {
-
-  }
-
-  @Get('/signin/google/callback')
-  @UseGuards(AuthGuard('google'))
-  googleLoginCallback(@Req() req, @Res() res) {
-    const accessToken: string = req.user.accessToken;
-
-    if (accessToken) {
-      res.redirect(`${this.configService.get<string>('STRATEGY_REDIRECT_CALLBACKURL')}${accessToken}`);
-    } else {
-      res.redirect(`${this.configService.get<string>('STRATEGY_REDIRECT_LOGINURL')}`);
-    }
-  }
-
-  @Get('/signin/github')
-  @UseGuards(AuthGuard('github'))
-  signinProviderGithub(@Req() req, @Res() res) {
-
-  }
-
-  @Get('/signin/github/callback')
-  @UseGuards(AuthGuard('github'))
-  githubLoginCallback(@Req() req, @Res() res) {
-    const accessToken: string = req.user.accessToken;
-    if (accessToken) {
-      res.redirect(`${this.configService.get<string>('STRATEGY_REDIRECT_CALLBACKURL')}${accessToken}`);
-    } else {
-      res.redirect(`${this.configService.get<string>('STRATEGY_REDIRECT_LOGINURL')}`);
-    }
   }
 
   @Get('/signin/githubprofile')
