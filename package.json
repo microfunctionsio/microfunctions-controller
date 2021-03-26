@@ -2,7 +2,6 @@
   "name": "microfunctions-controller",
   "version": "0.1.0",
   "description": "microfunctions-controller",
-  "author": "Ben sassi Mohammed",
   "license": "MIT",
   "scripts": {
     "prebuild": "rimraf dist",
