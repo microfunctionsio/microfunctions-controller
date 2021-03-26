@@ -1,22 +1,20 @@
 name: Docker Image CI
-
 on:
+  release:
+    types: [published]
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    branches:
+      - main
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@master
     - name: Publish microfunctions-controller
-      uses: elgohr/Publish-Docker-Github-Action@2.12
+      uses: elgohr/Publish-Docker-Github-Action@3.02
       with:
         name: microfunctions/microfunctions-controller
         username: ${{ secrets.LOGIN_DOCKER }}
         password: ${{ secrets.PASSWORD_DOCKER }}
+        tag_names: true
+
