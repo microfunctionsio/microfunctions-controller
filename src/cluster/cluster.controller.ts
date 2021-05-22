@@ -33,11 +33,7 @@ export class ClusterController {
     const pattern = { cmd: 'install-cluster' };
     return this.send(user, pattern, {idCluster});
   }
-  @Get('/:idcluster/uninstall')
-  uninstallCluster( @GetUser() user: User,@Param('idcluster') idCluster: string) {
-    const pattern = { cmd: 'uninstall-cluster' };
-    return this.send(user, pattern, {idCluster});
-  }
+
   @Get('/:idcluster/status')
   getClusterStatus( @GetUser() user: User,@Param('idcluster') idCluster: string) {
     const pattern = { cmd: 'status-cluster' };
