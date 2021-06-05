@@ -182,6 +182,15 @@ export class MicroFunctionsController {
     return this.send(user, pattern, { id });
   }
 
+  @Get('/namespaces/:idnamespaces/metrics')
+  @UseGuards(AuthGuard)
+  getNamespaceMetrics(@GetUser() user: any,
+                      @Query('range') range: number,
+                      @Param('idnamespaces') id: string) {
+    const pattern = { cmd: 'get-namespace-metrics' };
+    return this.send(user, pattern, { id , range});
+  }
+
   @Delete('/namespaces/:idnamespaces')
   @UseGuards(AuthGuard)
   deleteNamespacesById(
