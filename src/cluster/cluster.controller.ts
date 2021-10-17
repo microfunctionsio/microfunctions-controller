@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Inject, Param, Patch, Post, UseGuards } from '@nestjs/common';
+import {Body, Controller, Delete, Get, Inject, Param, Patch, Post, Query, UseGuards} from '@nestjs/common';
 import { ClusterDto } from '../dtos/cluster.dto';
 import { ClientProxy } from '@nestjs/microservices';
 import { AuthGuard as CAuthGuard } from '../interceptors/auth.guard';
@@ -39,6 +39,14 @@ export class ClusterController {
     const pattern = { cmd: 'status-cluster' };
     return this.send(user, pattern, {idCluster});
   }
+  @Get('/:idcluster/metrics')
+  getClusterMetrics( @GetUser() user: User,
+                     @Query('range') range: number,
+                     @Param('idcluster') idCluster: string) {
+    const pattern = { cmd: 'metrics-cluster' };
+    return this.send(user, pattern, {idCluster,range});
+  }
+
   @Get('/support-version')
   listSupportVersion( @GetUser() user: User) {
     const pattern = { cmd: 'support-version-cluster' };
